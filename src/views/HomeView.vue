@@ -10,6 +10,7 @@ const store = useTaskStore()
 const { boards, users, user } = storeToRefs(store)
 
 onMounted(() => {
+  store.getUsers()
   store.getTasks()
 })
 
@@ -38,7 +39,7 @@ const formatTime = (date: string) => {
 <template>
   <main class="max-w-[1280px] mx-auto p-4 flex flex-col min-h-screen gap-y-4">
     <div class="border border-gray-400 rounded-lg bg-white text-gray-500 text-xs grid grid-cols-3">
-      <div v-for="(user, index) in users" :key="`user-${index}`"
+      <div v-for="(user, index) in users" :key="`user-${index}`" @click="store.getUser(user.id)"
         class="py-2 px-4 flex gap-x-2 items-center cursor-pointer hover:bg-gray-200">
         <Avatar :color="user.color">{{ user.name[0] }}</Avatar>
         <div class="font-medium">{{ user.name }}</div>
@@ -61,7 +62,7 @@ const formatTime = (date: string) => {
             'hover:shadow-lg hover:shadow-purple-600/20': board.color === 'purple',
             'hover:shadow-lg hover:shadow-orange-600/20': board.color === 'orange',
           }]" :key="`card-task-${iu}`">
-            <div class="flex gap-x-2 items-center cursor-pointer">
+            <div class="flex gap-x-2 items-center cursor-pointer" @click="store.getUser(user.id)">
               <Avatar :color="user.color">{{ user.name[0] }}</Avatar>
               <div class="text-sm font-medium">{{ user.name }}</div>
             </div>
@@ -74,7 +75,8 @@ const formatTime = (date: string) => {
           </div>
         </template>
       </Board>
-      <div class="flex-1 p-4 border border-gray-400 bg-gray-200 rounded-lg text-gray-500 grid gap-y-2">
+      <div class="flex-1 p-4 border border-gray-400 bg-gray-200 rounded-lg text-gray-500 grid gap-y-2"
+        v-if="user !== null">
         <div class="flex flex-col gap-y-4">
           <div class="flex gap-x-2 items-center">
             <Avatar :color="user.color">{{ user.name[0] }}</Avatar>
