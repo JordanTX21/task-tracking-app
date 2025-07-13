@@ -13,20 +13,20 @@ export const useTaskStore = defineStore('task', () => {
     const user = ref<any | null>(null)
 
     const getTasks = async () => {
+        boards.value = []
         const response = await request.post("tasks")
-        console.log(response.data)
         boards.value = response.data
     }
 
     const getUsers = async () => {
+        users.value = []
         const response = await request.post("users")
-        console.log(response.data)
         users.value = response.data
     }
 
     const getUser = async (id: string) => {
+        user.value = null
         const response = await request.post(`user/${id}`)
-        console.log(response.data)
         user.value = response.data
     }
 
