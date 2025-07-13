@@ -46,7 +46,6 @@ const getRoundedClasses = (index: number) => {
     if (isLastRow && isFirstCol) result[`${prefix}:rounded-bl-lg`] = true;
     if (isLastRow && isLastCol) result[`${prefix}:rounded-br-lg`] = true;
   });
-  console.log(result)
 
   return result;
 };
