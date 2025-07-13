@@ -87,6 +87,15 @@ const getRoundedClasses = (index: number) => {
                     :src="`https://erp.overskull.com${user.image}`" alt="" v-if="user.image"><span v-else>{{
                       get_abbr(user.name) }}</span></Avatar>
                 <div class="text-sm font-medium">{{ user.name }}</div>
+                <div class="flex-1 flex justify-end">
+                  <div :class="['rounded-full px-2 py-0.75 flex items-center justify-center', {
+                    'bg-green-600': user.tiempo_desarrollo < user.complejidad,
+                    'bg-red-600': user.tiempo_desarrollo >= user.complejidad,
+                  }]">
+                    <span class="text-xs font-medium">{{ user.complejidad
+                      }}</span>
+                  </div>
+                </div>
               </RouterLink>
               <div class="flex items-center justify-between text-xs">
                 <a target="_blank" :href="`https://erp.overskull.com/app/task/${user.task}`" class="hover:underline">
